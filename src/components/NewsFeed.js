@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { List, ListItem } from "react-native-elements";
 import { COMMON_STYLES, BG_COLOR } from "../styles/global";
+import NewsItem from "./NewsItem";
 export default class NewsFeed extends Component {
   constructor(props) {
     super(props);
@@ -57,26 +58,49 @@ export default class NewsFeed extends Component {
     );
   };
 
+  _renderRow = item => {
+    return (
+      <NewsItem
+        onPress={() => this._onModalOpen(item.url)}
+        style={styles.newsItem}
+        imageUrl={item.imageUrl}
+        title={item.title}
+        description={item.description}
+        date={item.date}
+        author={item.author}
+        location={item.location}
+        index={parseInt(item.key)}
+      />
+    );
+  };
+
   render() {
     return (
       <View style={COMMON_STYLES.pageContainer}>
         <FlatList
           data={this.props.news}
-          renderItem={({ item }) => (
-            <ListItem
-              onPress={() => this._onModalOpen(item.url)}
-              key={item.key}
-              roundAvatar
-              avatar={{ uri: item.imageUrl }}
-              title={<Text style={styles.plainText}>{item.title}</Text>}
-              subtitle={
-                <View>
-                  <Text style={styles.plainText}>{item.description}</Text>
-                </View>
-              }
-              style={styles.plainText}
-            />
-          )}
+          renderItem={
+            ({ item }) => this._renderRow(item)
+            // <NewsItem
+            //   onPress={() => this.onModalOpen(item.url)}
+            //   style={styles.newsItem}
+            //   index={item.key}
+            //   {...item}
+            // />
+            // <ListItem
+            //   onPress={() => this._onModalOpen(item.url)}
+            //   key={item.key}
+            //   roundAvatar
+            //   avatar={{ uri: item.imageUrl }}
+            //   title={<Text style={styles.plainText}>{item.title}</Text>}
+            //   subtitle={
+            //     <View>
+            //       <Text style={styles.plainText}>{item.description}</Text>
+            //     </View>
+            //   }
+            //   style={styles.plainText}
+            // />
+          }
         />
         {/* ListView Deprcated */}
         {this._renderModal()}
