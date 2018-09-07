@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { TabBarIOS, Text } from "react-native";
 import { BAR_COLOR, LINK_COLOR } from "../styles/global";
+import Search from "./Search";
 
 export default class extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ export default class extends Component {
           selected={this.state.tab === "search"}
           onPress={() => this.setState({ tab: "search" })}
         >
-          <Text>search</Text>
+          <Search />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           systemIcon={"bookmarks"}
