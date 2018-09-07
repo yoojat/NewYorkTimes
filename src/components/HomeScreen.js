@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-import { TabBarIOS, Alert, Vibration, Text } from "react-native";
+import { TabBarIOS, Alert, Vibration, Text, StatusBar } from "react-native";
 import { BAR_COLOR, LINK_COLOR } from "../styles/global";
 import Search from "./Search";
+
+// Set the status bar for iOS to light
+StatusBar.setBarStyle("light-content");
 
 export default class extends Component {
   constructor(props) {
