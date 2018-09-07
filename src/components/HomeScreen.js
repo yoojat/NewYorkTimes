@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { TabBarIOS, Alert, Vibration, Text, StatusBar } from "react-native";
 import { BAR_COLOR, LINK_COLOR } from "../styles/global";
 import Search from "./Search";
+import NewsFeed from "./NewsFeed";
 
 // Set the status bar for iOS to light
 StatusBar.setBarStyle("light-content");
@@ -36,7 +37,7 @@ export default class extends Component {
           selected={this.state.tab === "newsFeed"}
           onPress={() => this.setState({ tab: "newsFeed" })}
         >
-          <Text>news feed</Text>
+          <NewsFeed />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           systemIcon={"search"}
