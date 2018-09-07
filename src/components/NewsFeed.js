@@ -6,7 +6,8 @@ import {
   FlatList,
   Modal,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  WebView
 } from "react-native";
 import { List, ListItem } from "react-native-elements";
 import { COMMON_STYLES, BG_COLOR } from "../styles/global";
@@ -20,10 +21,11 @@ export default class NewsFeed extends Component {
     };
   }
 
-  _onModalOpen = () => {
+  _onModalOpen = url => {
     this.setState({
       ...this.state,
-      modalVisible: true
+      modalVisible: true,
+      modalUrl: url
     });
   };
 
@@ -46,9 +48,10 @@ export default class NewsFeed extends Component {
             onPress={this._onModalClose}
             style={styles.closeButton}
           >
-            <Text>close</Text>
+            <Text style={styles.plainText}>close</Text>
             {/* FIXME: Small Text로 바꿀것 */}
           </TouchableOpacity>
+          <WebView scalesPageToFit source={{ uri: this.state.modalUrl }} />
         </View>
       </Modal>
     );
@@ -57,22 +60,25 @@ export default class NewsFeed extends Component {
   render() {
     return (
       <View style={COMMON_STYLES.pageContainer}>
-        <List>
-          <FlatList
-            data={this.props.news}
-            renderItem={({ item }) => (
-              <ListItem
-                onPress={this._onModalOpen}
-                key={item.key}
-                roundAvatar
-                avatar={{ uri: item.imageUrl }}
-                title={item.title}
-                subtitle={item.subtitle}
-              />
-            )}
-          />
-          {/* ListView Deprcated */}
-        </List>
+        <FlatList
+          data={this.props.news}
+          renderItem={({ item }) => (
+            <ListItem
+              onPress={() => this._onModalOpen(item.url)}
+              key={item.key}
+              roundAvatar
+              avatar={{ uri: item.imageUrl }}
+              title={<Text style={styles.plainText}>{item.title}</Text>}
+              subtitle={
+                <View>
+                  <Text style={styles.plainText}>{item.description}</Text>
+                </View>
+              }
+              style={styles.plainText}
+            />
+          )}
+        />
+        {/* ListView Deprcated */}
         {this._renderModal()}
       </View>
     );
@@ -88,9 +94,9 @@ NewsFeed.defaultProps = {
   news: [
     {
       key: "a",
-      title: "React Native",
+      title: "Jun Park",
       imageUrl: "https://avatars3.githubusercontent.com/u/14242795?s=460&v=4",
-      description: "Build Native Mobile Apps using JavaScript and React",
+      description: "miso360",
       date: new Date(),
       author: "Facebook",
       location: "Menlo Park, California",
@@ -98,9 +104,9 @@ NewsFeed.defaultProps = {
     },
     {
       key: "b",
-      title: "Packt Publishing",
+      title: "0131m",
       imageUrl: "https://avatars0.githubusercontent.com/u/25732075?s=460&v=4",
-      description: "Stay Relevant",
+      description: "Lorem ipsum dolor sit amet, co",
       date: new Date(),
       author: "Packt Publishing",
       location: "Birmingham, UK",
@@ -123,5 +129,9 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
     flexDirection: "row"
+  },
+  plainText: {
+    color: "white",
+    paddingLeft: 10
   }
 });
