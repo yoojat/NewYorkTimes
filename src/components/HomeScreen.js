@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TabBarIOS, Alert, Text } from "react-native";
+import { TabBarIOS, Alert, Vibration, Text } from "react-native";
 import { BAR_COLOR, LINK_COLOR } from "../styles/global";
 import Search from "./Search";
 
@@ -12,6 +12,7 @@ export default class extends Component {
   }
 
   showBookmarkAlert() {
+    Vibration.vibrate();
     Alert.alert(
       "Coming Soon!",
       "We're hard at work on this feature, check back in the near future.",
