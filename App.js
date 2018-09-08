@@ -1,5 +1,5 @@
 import React from "react";
-import HomeScreen from "./src/components2/HomeScreen";
+import HomeScreen from "./src/components3/HomeScreen";
 
 export default class App extends React.Component {
   render() {
